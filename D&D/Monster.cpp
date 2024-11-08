@@ -66,38 +66,41 @@ void Monster::read_record()
 
         row.clear();
 
-        // read an entire row and
-        // store it in a string variable 'line'
-        getline(fin, line);
+       stringstream s(line); // To process the line
+        vector<string> row; // To store each column temporarily
+        string word;
 
-        // used for breaking words
-        stringstream s(line);
-
-        // read every column data of a row and
-        // store it in a string variable, 'word'
-        while (getline(s, word, ','))
-        {
-            // add all the column data
-            // of a row to a vector
+        // Split line by comma
+        while (getline(s, word, ',')) {
             row.push_back(word);
         }
 
-        // convert string to integer for comparison
-        roll2 = stoi(row[0]);
+        // Check if row has the correct number of columns
+        if (row.size() < 7) continue;
 
-        // Compare the roll number
-        if (roll2 == rollnum)
-        {
-            // Print the found data
-            count = 1;
-            cout << "Details of Roll " << row[0] << " : \n";
-            cout << "Name: " << row[1] << "\n";
-            cout << "Maths: " << row[2] << "\n";
-            cout << "Physics: " << row[3] << "\n";
-            cout << "Chemistry: " << row[4] << "\n";
-            cout << "Biology: " << row[5] << "\n";
-            break;
-        }
+        // Parse the columns into appropriate data types
+        name = row[0];
+        cr = stof(row[1]);
+        type = row[2];
+        size = row[3];
+        ac = stoi(row[4]);
+        hp = stoi(row[5]);
+        align = row[6];
+
+        // Display the monster's details
+        cout << "Monster Details:\n";
+        cout << "Name: " << name << "\n";
+        cout << "Challenge Rating (CR): " << cr << "\n";
+        cout << "Type: " << type << "\n";
+        cout << "Size: " << size << "\n";
+        cout << "Armor Class (AC): " << ac << "\n";
+        cout << "Hit Points (HP): " << hp << "\n";
+        cout << "Alignment: " << align << "\n";
+        cout << "-----------------------\n";
+    }
+
+   
+}
     }
     if (count == 0)
         cout << "Record not found\n";

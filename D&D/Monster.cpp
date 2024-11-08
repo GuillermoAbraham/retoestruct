@@ -55,17 +55,11 @@ void Monster::read_record()
     // Open an existing file
     fin.open("monsters_patched.csv", ios::in);
 
-    // Get the roll number
-    // of which the data is required
-    int rollnum, roll2, count = 0;
-    cout << "Enter the roll number "
-         << "of the student to display details: ";
-    cin >> rollnum;
-
     // Read the Data from the file
     // as String Vector
-    vector<string> row;
-    string line, word, temp;
+    string line, name, type, size, align;
+    float cr;
+    int ac, hp;
 
     while (fin >> temp)
     {

@@ -26,6 +26,4 @@ void Node<T>::setNext(Node<T> *next) {
     this->next=next;
 }
 
-template class Node<int>;
-template class Node<std::string>;
 template class Node<Monster>;

@@ -3,106 +3,52 @@
 //
 
 #include "Monster.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <sstream>
 
 void Monster::setName(string name) {
-
+    this->name = name;
 }
 string Monster::getName() {
-
+    return this->name;
 }
-void Monster::setCr(string cr) {
-
+void Monster::setCr(int cr) {
+    this->cr = cr;
 }
-string Monster::getCr() {
-
+int Monster::getCr() {
+    return this->cr;
 }
 void Monster::setType(string type) {
-
+    this->type = type;
 }
 string Monster::getType() {
-
+    return this->type;
 }
 void Monster::setAlign(string align) {
-
+    this->align = align;
 }
 string Monster::getAlign() {
-
+    return this->align;
 }
-void Monster::setSize(int size) {
-
+void Monster::setSize(string size) {
+    this->size = size;
 }
-int Monster::getsize() {
-
+string Monster::getsize() {
+    return this->size;
 }
 void Monster::setArmor_class(int armor_class) {
-
+    this->armor_class = armor_class;
 }
 int Monster::getArmor_class() {
-
+    return this->armor_class;
 }
 void Monster::setHp(int Hp) {
-
+    this->hp = hp;
 }
 int Monster::getHp() {
-
+    return this->hp;
 }
 
-void Monster::read_record()
-{
-    // File pointer
-    fstream fin;
-
-    // Open an existing file
-    fin.open("monsters_patched.csv", ios::in);
-
-    // Read the Data from the file
-    // as String Vector
-    string line, name, type, size, align;
-    float cr;
-    int ac, hp;
-
-    while (fin >> temp)
-    {
-
-        row.clear();
-
-       stringstream s(line); // To process the line
-        vector<string> row; // To store each column temporarily
-        string word;
-
-        // Split line by comma
-        while (getline(s, word, ',')) {
-            row.push_back(word);
-        }
-
-        // Check if row has the correct number of columns
-        if (row.size() < 7) continue;
-
-        // Parse the columns into appropriate data types
-        name = row[0];
-        cr = stof(row[1]);
-        type = row[2];
-        size = row[3];
-        ac = stoi(row[4]);
-        hp = stoi(row[5]);
-        align = row[6];
-
-        // Display the monster's details
-        cout << "Monster Details:\n";
-        cout << "Name: " << name << "\n";
-        cout << "Challenge Rating (CR): " << cr << "\n";
-        cout << "Type: " << type << "\n";
-        cout << "Size: " << size << "\n";
-        cout << "Armor Class (AC): " << ac << "\n";
-        cout << "Hit Points (HP): " << hp << "\n";
-        cout << "Alignment: " << align << "\n";
-        cout << "-----------------------\n";
-    }
-
-   
-}
-    }
-    if (count == 0)
-        cout << "Record not found\n";
-    fin.close();
-}

@@ -7,8 +7,8 @@ int main() {
 
 
     LinkedList<Monster> monster_list;
-    monster_list.insertAtFinish(Monster ("Chupacabras","Insane","Demon","Caotic",10,5,10000000));
-    monster_list.insertAtFinish(Monster ("Lord Farquad","Impossible","Supreme king","Catastrophic attitude",2,8,255));
+
+    monster_list.read_record();
     monster_list.displayList();
 
     LinkedList<Powers> powers_list;

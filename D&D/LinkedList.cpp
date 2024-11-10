@@ -3,9 +3,12 @@
 //
 
 #include "LinkedList.h"
-#include <iostream>
-#include "LinkedList.h"
 #include "Monster.h"
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <sstream>
 using namespace std;
 template<typename T>
 LinkedList<T>::LinkedList() {
@@ -42,7 +45,7 @@ void LinkedList<T>::displayList() {
     Node<T>* current=head;
     cout<<"[";
     while(current!= nullptr) {
-        cout<<current->getData()<<" ,";
+        cout<<current->getData()<<" \n";
         current= current->getNext();
     }
     cout<<"]"<<endl;
@@ -83,6 +86,67 @@ void LinkedList<T>::deleteElement(T value) {
     }
 }
 
-template class LinkedList<int>;
-template class LinkedList <std::string>;
+template<typename T>
+void LinkedList<T>::read_record()
+{
+    // File pointer
+    fstream fin;
+
+    // Open an existing file
+    fin.open("monsters_patched.csv", ios::in);
+    if(fin.fail()){
+        cout<<"No se pudo abrir el archivo.";
+        exit(1);
+    }
+
+    // Read the Data from the file
+    // as String Vector
+    string line, name, type,size, align;
+    int ac, hp, cr;
+    vector<string> row;
+    getline(fin, line);
+
+    while (getline(fin, line))
+    {
+
+        row.clear();
+
+        stringstream s(line); // To process the line
+        string word;
+
+        // Split line by comma
+        while (getline(s, word, ',')) {
+            row.push_back(word);
+        }
+
+        // Check if row has the correct number of columns
+        if (row.size() < 7) continue;
+
+        // Parse the columns into appropriate data types
+        name = row[0];
+        cr = stoi(row[1]);
+        type = row[2];
+        size = row[3];
+        ac = stoi(row[4]);
+        hp = stoi(row[5]);
+        align = row[6];
+
+        Monster monster(name,cr,type,align,size,ac,hp);
+        insertAtFinish(monster);
+
+/*
+        // Display the monster's details
+        cout << "Monster Details:\n";
+        cout << "Name: " << name << "\n";
+        cout << "Challenge Rating (CR): " << cr << "\n";
+        cout << "Type: " << type << "\n";
+        cout << "Size: " << size << "\n";
+        cout << "Armor Class (AC): " << ac << "\n";
+        cout << "Hit Points (HP): " << hp << "\n";
+        cout << "Alignment: " << align << "\n";
+        cout << "-----------------------\n";
+        */
+    }
+}
+
 template class LinkedList<Monster>;

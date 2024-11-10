@@ -5,6 +5,7 @@
 #define LINKEDLIST_H
 #include "Node.h"
 
+
 template <typename T>
 class LinkedList {
 private:
@@ -16,6 +17,7 @@ public:
     void displayList();
     int findElement(T value);
     void deleteElement(T value);
+    void read_record();
     ~LinkedList() {
         Node<T>* current=head;
         while(current!=nullptr) {

@@ -4,6 +4,7 @@
 
 #include "LinkedList.h"
 #include "Monster.h"
+#include "Player.h"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -149,4 +150,37 @@ void LinkedList<T>::read_record()
     }
 }
 
-template class LinkedList<Monster>;
+template class LinkedList<Player>;
+
+template<typename T>
+void LinkedList<T>::read_record(){
+    fstream fin;
+    fin.open("player_patched.csv", ios::in);
+    if (fin.tale()){
+        cout<<"No se pudo leer el archivo";
+        exit(1);
+    }
+    string line, race, name;
+    int hp, lp;
+    vector<string> row;
+    getline(fin, line);
+
+    while(getline(fin,line)) {
+        row.clear();
+        stringstream s(line);
+        string word;
+
+    while (getline(s, word, ',')) {
+        row.push_back(word);
+    }
+    if (row.size() < 4 ) continue;
+
+    hp = stoi(row[0]);
+    lp = stoi(row[1]);
+    race = row[2];
+    name = row[3];
+
+    Player player(hp, lp, race, name);
+    list.insertAtFinish(player);
+    }
+}

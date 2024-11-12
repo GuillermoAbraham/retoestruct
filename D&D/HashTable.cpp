@@ -1,4 +1,7 @@
 #include "Hashtable.h"
+#include "Player.h"
+#include <iostream>
+using namespace std;
 
 int Hashtable::hash(int key) {
     return key%10;

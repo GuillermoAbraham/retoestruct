@@ -23,6 +23,8 @@ public:
     int getArmor_class();
     void setHp(int Hp);
     int getHp();
+
+//operador compara
     friend std::ostream& operator<<(std::ostream& os,const Monster& M) {
         os<<"Name: "<<M.name<<" "<<" Cr: "<<M.cr<<" "<<"Type: "<<M.type<<" "<<"Align: "<<M.align<<" "<<"Size: "<<M.size<<" "<<"Armor class: "<<M.armor_class<<" "<<"Hit points: "<<M.hp<<" ";
         return os;

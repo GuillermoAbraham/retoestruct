@@ -2,6 +2,10 @@
 // Created by stanl on 29/10/2024.
 //
 
+#include <string>
+#include <iostream>
+using namespace std;
+
 class Monster {
 public:
     Monster(): name(""), cr(0), type(""),align(""),size(""),armor_class(0),hp(0){};

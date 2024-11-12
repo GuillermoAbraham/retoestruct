@@ -1,29 +1,31 @@
-#ifndef LINKEDLIST_H
-#define LINKEDLIST_H
+
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
 #include "Node.h"
+#include <iostream>
 
-
-template <typename T>
-class LinkedList {
+using namespace std;
+class Hashtable {
 private:
-    Node<T>* head;
+    static const int capacity=10;
+    Node* table[capacity];
+    int hash(int key);
+
 public:
-    LinkedList();
-    void insertAtStart(T value);
-    void insertAtFinish(T value);
-    void displayList();
-    int findElement(T value);
-    void deleteElement(T value);
-    void read_record();
-    ~LinkedList() {
-        Node<T>* current=head;
-        while(current!=nullptr) {
-            Node<T>* temp= current;
-            current=current->getNext();
-            delete temp;
+    Hashtable() {
+        for(int i=0; i< capacity;i++) {
+            table[i]=nullptr;
         }
     }
+
+    void insert(int data);
+    Node* search(int data);
+    void remove(int data);
+    void showTable();
+
+
 };
 
-#endif
 
+
+#endif //HASHTABLE_H

@@ -1,5 +1,5 @@
 #include "Hashtable.h"
-#include "Player.h"
+#include "Powers.h"
 #include <iostream>
 using namespace std;
 

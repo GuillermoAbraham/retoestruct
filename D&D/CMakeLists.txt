@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.29)
-project(D_D)
+cmake_minimum_required(VERSION 3.28)
+project(LinkedList)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(D_D main.cpp
         Monster.cpp
@@ -13,4 +13,8 @@ add_executable(D_D main.cpp
         Powers.cpp
         Powers.h
         Player.cpp
-        Player.h)
+        Player.h
+        Inventory.cpp
+        Inventory.h
+        HashTable.cpp
+        HashTable.h)

@@ -4,7 +4,7 @@
 using namespace std;
 
 int Hashtable::hash(int key) {
-    return key%10;
+    return key%15;
 }
 
 void Hashtable::insert(int data) {

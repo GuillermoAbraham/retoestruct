@@ -1,3 +1,5 @@
+#include "Powers.h"
+#include <iostream>
 using namespace std;
 
 #include "Hashtable.h"

@@ -9,7 +9,7 @@ void Player:: setHp(int hp){
 }
 
 int Player::getHp(){
-  return hp;
+  return this->hp;
 }
 
 void PLayer:: setLp(int lp){
@@ -17,7 +17,7 @@ void PLayer:: setLp(int lp){
 }
 
 int Player::getLp(){
-  return lp;
+  return this->lp;
 }
 
 void Player::setRace(string race){
@@ -25,7 +25,7 @@ void Player::setRace(string race){
 }
 
 string Player::getRace(){
-  return race;
+  return this->race;
 }
 
 void Player::setName(string name){
@@ -33,5 +33,5 @@ void Player::setName(string name){
 }
 
 string Player::getName(){
-  return name;
+  return this->name;
 }

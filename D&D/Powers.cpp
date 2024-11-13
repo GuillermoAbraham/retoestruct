@@ -9,7 +9,7 @@ void Powers::setName(string name){
 }
 
 string Powers::getName(){
-  return name;
+  return this->name;
 }
 
 void Powers::setDescription(string description){
@@ -17,5 +17,5 @@ void Powers::setDescription(string description){
 }
 
 string Powers::getDescription(){
-  return name;
+  return this->name;
 }

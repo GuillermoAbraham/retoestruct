@@ -20,9 +20,9 @@ public:
         }
     }
 
-    void insert(int data);
-    Node<T>* search(int data);
-    void remove(int data);
+    void insert(T data);
+    Node<T>* search(T data);
+    void remove(T data);
     void showTable();
 
 

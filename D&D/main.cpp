@@ -44,4 +44,5 @@ int main() {
     HashP.insert("Vampiric Touch", "Controlas el alma de la bestia, robando puntos de vida a tu favor. LP = d(10) , HP = d(10)");
     HashP.insert("Compound seizure", "Infliges dano proporcional al numero de turno actual por combate. HP = d(10) * #turno");
 
+    
 }

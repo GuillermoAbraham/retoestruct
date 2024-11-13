@@ -2,6 +2,7 @@
 #include "Monster.h"
 #include "LinkedList.h"
 #include "Powers.h"
+#include "HashTable.h"
 
 int main() {
 
@@ -11,12 +12,12 @@ int main() {
     monster_list.read_record();
     monster_list.displayList();
 
-
+    Powers p1("Eldritch Blast","Este hechizo conjura una rafaga de energia magica oscura que se lanza contra un enemigo. HP = 1.5 * d(10) ");
     Hashtable<Powers> HashP;
-    HashP.insert("Eldritch Blast","Este hechizo conjura una rafaga de energia magica oscura que se lanza contra un enemigo. HP = 1.5 * d(10) ");
+    HashP.insert(p1);
     HashP.insert("Invisibility", "Eres invisible durante el proximo turno, por lo que no te pueden hacer dano");
     HashP.insert("Fireball", "Disparas una bola de fuego de tu pecho que inflige daño instantaneo. HP = 2 * d(10)");
-    HashP.inseert("Healing Word", "Recuperas puntos de vida LP = 20 + d(10)");
+    HashP.insert("Healing Word", "Recuperas puntos de vida LP = 20 + d(10)");
     HashP.insert("Mystic Shot", "Este hechizo permite multiplicar x10 el dano asignado a tu dado (solo aplicable en el primer turno de cada combate). HP = 10*d(10)");
     HashP.insert("Aura of Vitality", "Recibes puntos de vida. LP = 2 * d(10) ");
     HashP.insert("Slicker Shot", "Obtienes un dado extra d(10) que te permite volver a usar un hechizo. EL valor del dado de la primer tirada se convierte en HP. HP = d(10) + posible hp de la siguiente tirada ");

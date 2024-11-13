@@ -6,6 +6,10 @@
 #include <iostream>
 using namespace std;
 
+#ifndef MONSTRUOS_H
+#define MONSTRUOS_H
+
+
 class Monster {
 public:
     Monster(): name(""), cr(0), type(""),align(""),size(""),armor_class(0),hp(0){};

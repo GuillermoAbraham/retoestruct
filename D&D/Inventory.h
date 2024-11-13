@@ -14,7 +14,7 @@ public:
     void setName(string name);
     string getName();
     void setDescription(string description);
-    string getDescription(string description);
+    string getDescription();
     void setAmount(int amount);
     int getAmount();
 private:

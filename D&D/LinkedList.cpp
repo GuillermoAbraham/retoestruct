@@ -135,18 +135,6 @@ void LinkedList<T>::read_record()
         Monster monster(name,cr,type,align,size,ac,hp);
         insertAtFinish(monster);
 
-/*
-        // Display the monster's details
-        cout << "Monster Details:\n";
-        cout << "Name: " << name << "\n";
-        cout << "Challenge Rating (CR): " << cr << "\n";
-        cout << "Type: " << type << "\n";
-        cout << "Size: " << size << "\n";
-        cout << "Armor Class (AC): " << ac << "\n";
-        cout << "Hit Points (HP): " << hp << "\n";
-        cout << "Alignment: " << align << "\n";
-        cout << "-----------------------\n";
-        */
     }
 }
 

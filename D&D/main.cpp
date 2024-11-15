@@ -7,9 +7,22 @@
 int main() {
 
 
-    LinkedList<Monster> monster_list;
 
+    LinkedList<Monster> monster_list;
     monster_list.read_record();
+
+
+    cout<<"--------------------------------- Lista inventario -------------------------------------"<<endl;
+    LinkedList<Inventory> inventario;
+    Inventory item1("Llave","Esto abre algo?",1);
+    Inventory item2("Mapa","El One Piece esta muy cerca de ti....",1);
+    Inventory item3("Nullptr","Esto no es cero",1);
+    inventario.insertAtFinish(item1);
+    inventario.insertAtFinish(item2);
+    inventario.insertAtFinish(item3);
+    inventario.displayList();
+
+
 
     Hashtable<Powers> HashP;
     Powers p1("Eldritch Blast","Este hechizo conjura una rafaga de energia magica oscura que se lanza contra un enemigo. HP = 1.5 * d(10) ");

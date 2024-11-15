@@ -13,7 +13,7 @@ public:
     ~Dice();
     void setFace1(int face1);
     int getFace1();
-    void setFace2(int face20);
+    void setFace2(int face2);
     int getFace2();
 private:
     int face1, face2;

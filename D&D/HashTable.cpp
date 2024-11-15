@@ -1,3 +1,5 @@
+
+#include "Hashtable.h"
 #include "Powers.h"
 #include <iostream>
 using namespace std;
@@ -6,28 +8,28 @@ using namespace std;
 
 template <typename T>
 int Hashtable<T>::hash(int key) {
-    return key%10;
+    return key%14;
 }
 
 template <typename T>
-void Hashtable<T>::insert(T data) {
-    int index= hash(data);
-    Node<T>* newNode= new Node(data);
+void Hashtable<T>::insert(T data, int num) {
+    int index= hash(num);
+    Node<T>* newNode= new Node<T>(data);
     //implementar colisión
     newNode->setNext(table[index]);
     table[index]= newNode;
 }
 
 template <typename T>
-Node<T>* Hashtable<T>::search(T data) {
-    int index= hash(data);
+Node<T>* Hashtable<T>::search(T data, int num) {
+    int index= hash(num);
     //implementar colisión
     return table[index];
 }
 
 template <typename T>
-void Hashtable<T>::remove(T data) {
-    int index= hash(data);
+void Hashtable<T>::remove(T data, int num) {
+    int index= hash(num);
     //implementar colision
     table[index]= nullptr;
 }
@@ -49,3 +51,5 @@ void Hashtable<T>::showTable() {
     }
     cout<<"--------END---------"<<endl;
 }
+
+template class Hashtable<Powers>;

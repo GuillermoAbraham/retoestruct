@@ -1,10 +1,10 @@
 //
 // Created by stanl on 29/10/2024.
 //
+
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include "Node.h"
-
 
 template <typename T>
 class LinkedList {
@@ -29,5 +29,4 @@ public:
 };
 
 #endif
-
 

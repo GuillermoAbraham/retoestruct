@@ -1,6 +1,3 @@
-//
-// Created by stanl on 29/10/2024.
-//
 #include <iostream>
 #include <string>
 using namespace std;
@@ -14,6 +11,14 @@ public:
     Player(int hp, int lp, string race, string name) : hp(10), lp(100), race(nullptr),name(nullptr){};
     ~Player();
     //seters y geters
+    void setHp(int hp);
+    int getHp();
+    void setLp(int lp);
+    int getLp();
+    void setRace(string race);
+    string getRace();
+    void setName(string name);
+    string getName();
 
 
 private:
@@ -23,4 +28,4 @@ private:
 
 
 
-#endif //PLAYER_H
+#endif //PLAYE

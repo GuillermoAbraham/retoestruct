@@ -17,4 +17,8 @@ add_executable(D_D main.cpp
         Inventory.cpp
         Inventory.h
         HashTable.cpp
-        HashTable.h)
+        HashTable.h
+        Dice.h
+        Dice.cpp
+        Graph.h
+        Graph.cpp)

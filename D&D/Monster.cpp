@@ -4,10 +4,8 @@
 
 #include "Monster.h"
 #include <iostream>
-#include <fstream>
-#include <vector>
 #include <string>
-#include <sstream>
+
 
 void Monster::setName(string name) {
     this->name = name;

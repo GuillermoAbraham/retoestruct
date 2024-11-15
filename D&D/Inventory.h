@@ -1,3 +1,6 @@
+//
+// Created by stanl on 12/11/2024.
+//
 
 #ifndef INVENTORY_H
 #define INVENTORY_H

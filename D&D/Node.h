@@ -1,6 +1,3 @@
-//
-// Created by stanl on 29/10/2024.
-//
 #ifndef NODE_H
 #define NODE_H
 

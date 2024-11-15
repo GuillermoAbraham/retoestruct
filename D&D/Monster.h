@@ -2,12 +2,13 @@
 // Created by stanl on 29/10/2024.
 //
 
-#include <string>
 #include <iostream>
+#include <string>
 using namespace std;
 
-#ifndef MONSTRUOS_H
-#define MONSTRUOS_H
+#ifndef MONSTER_H
+#define MONSTER_H
+
 
 
 class Monster {
@@ -31,8 +32,6 @@ public:
     int getArmor_class();
     void setHp(int Hp);
     int getHp();
-
-//operador compara
     friend std::ostream& operator<<(std::ostream& os,const Monster& M) {
         os<<"Name: "<<M.name<<" "<<" Cr: "<<M.cr<<" "<<"Type: "<<M.type<<" "<<"Align: "<<M.align<<" "<<"Size: "<<M.size<<" "<<"Armor class: "<<M.armor_class<<" "<<"Hit points: "<<M.hp<<" ";
         return os;
@@ -49,6 +48,5 @@ private:
 
 
 };
-
 
 #endif //MONSTER_H

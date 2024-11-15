@@ -1,4 +1,3 @@
-
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include "Node.h"
@@ -20,9 +19,9 @@ public:
         }
     }
 
-    void insert(T data);
-    Node<T>* search(T data);
-    void remove(T data);
+    void insert(T data, int num);
+    Node<T>* search(T data, int num);
+    void remove(T data, int num);
     void showTable();
 
 

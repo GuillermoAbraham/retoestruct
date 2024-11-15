@@ -3,6 +3,7 @@
 #include "LinkedList.h"
 #include "Powers.h"
 #include "HashTable.h"
+#include "Inventory.h"
 
 int main() {
 

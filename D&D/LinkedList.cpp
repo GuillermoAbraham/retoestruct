@@ -8,8 +8,8 @@
 #include <vector>
 #include <string>
 #include <sstream>
-
 #include "Inventory.h"
+
 using namespace std;
 template<typename T>
 LinkedList<T>::LinkedList() {
@@ -87,8 +87,8 @@ void LinkedList<T>::deleteElement(T value) {
     }
 }
 
-template<typename T>
-void LinkedList<T>::read_record()
+template<>
+void LinkedList<Monster>::read_record()
 {
     // File pointer
     fstream fin;
@@ -139,8 +139,7 @@ void LinkedList<T>::read_record()
 }
 
 template class LinkedList<Monster>;
-
-
+template class LinkedList<Inventory>;
 
    
 

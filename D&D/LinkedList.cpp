@@ -1,15 +1,16 @@
 //
 // Created by stanl on 29/10/2024.
 //
-#include "linkedList.h"
-#include <iostream>
+
+#include "LinkedList.h"
 #include "Monster.h"
+#include "Player.h"
+#include <iostream>
 #include <fstream>
 #include <vector>
 #include <string>
 #include <sstream>
-#include "Inventory.h"
-
+#include <time.h>
 using namespace std;
 template<typename T>
 LinkedList<T>::LinkedList() {
@@ -87,9 +88,8 @@ void LinkedList<T>::deleteElement(T value) {
     }
 }
 
-template<>
-void LinkedList<Monster>::read_record()
-{
+template<typename T>
+void LinkedList<T>::read_record() {
     // File pointer
     fstream fin;
 
@@ -107,9 +107,7 @@ void LinkedList<Monster>::read_record()
     vector<string> row;
     getline(fin, line);
 
-    while (getline(fin, line))
-    {
-
+    while (getline(fin, line)) {
         row.clear();
 
         stringstream s(line); // To process the line
@@ -134,13 +132,27 @@ void LinkedList<Monster>::read_record()
 
         Monster monster(name,cr,type,align,size,ac,hp);
         insertAtFinish(monster);
-
     }
 }
+template<typename T>
+void LinkedList<T>::getRandomMonster() {
+    srand(time(NULL));
+    int random=rand()%(761);
+    cout<<random<<endl;
+}
 
-template class LinkedList<Monster>;
-template class LinkedList<Inventory>;
+/*
+        // Display the monster's details
+        cout << "Monster Details:\n";
+        cout << "Name: " << name << "\n";
+        cout << "Challenge Rating (CR): " << cr << "\n";
+        cout << "Type: " << type << "\n";
+        cout << "Size: " << size << "\n";
+        cout << "Armor Class (AC): " << ac << "\n";
+        cout << "Hit Points (HP): " << hp << "\n";
+        cout << "Alignment: " << align << "\n";
+        cout << "-----------------------\n";
+        */
 
-   
 
 //Lista ligada de inventario nombre y descripción (atributos)

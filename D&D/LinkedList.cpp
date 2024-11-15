@@ -1,15 +1,15 @@
 //
 // Created by stanl on 29/10/2024.
 //
-
-#include "LinkedList.h"
-#include "Monster.h"
-#include "Player.h"
+#include "linkedList.h"
 #include <iostream>
+#include "Monster.h"
 #include <fstream>
 #include <vector>
 #include <string>
 #include <sstream>
+
+#include "Inventory.h"
 using namespace std;
 template<typename T>
 LinkedList<T>::LinkedList() {
@@ -138,7 +138,7 @@ void LinkedList<T>::read_record()
     }
 }
 
-
+template class LinkedList<Monster>;
 
 
 

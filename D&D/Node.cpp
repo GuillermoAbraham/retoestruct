@@ -1,13 +1,17 @@
 //
 // Created by stanl on 29/10/2024.
 //
+
 #include "Node.h"
 #include <iostream>
 #include "Monster.h"
+#include "Powers.h"
+
+
 template<typename T>
-Node<T>::Node(T data) {
-    this->data=data;
-    next=nullptr;
+Node<T>::Node (T data) {
+    this->data = data;
+    next = nullptr;
 }
 template<typename T>
 T Node<T>::getData() {
@@ -27,3 +31,4 @@ void Node<T>::setNext(Node<T> *next) {
 }
 
 template class Node<Monster>;
+template class Node<Powers>;

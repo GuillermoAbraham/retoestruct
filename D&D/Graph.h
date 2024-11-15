@@ -1,33 +1,36 @@
 #ifndef GRAPH_H
 #define GRAPH_H
-#include "Node.h"
 
-template <typename T>
+
 class Graph {
 private:
     int vertices;
-    Node<T>** adjList;
+    int** adjMatriz;
+    int minDistance(int* distances, bool* visited);
 public:
-    Graph(int vertices) : vertices(vertices) {
-        adjList = new Node<T>*[vertices];
-        for(int i=0; i< vertices;i++) {
-            adjList[i]= nullptr;
+    Graph(int vertices): vertices(vertices) {
+        adjMatriz = new int*[vertices];
+        for(int i=0;i< vertices;i++) {
+            adjMatriz[i]= new int[vertices];
+            for(int j=0;j<vertices;j++) {
+                adjMatriz[i][j]=0;
+            }
         }
     }
     ~Graph() {
         for(int i=0;i<vertices;i++) {
-            Node<T>* tmp= adjList[i];
-            while(tmp) {
-                Node<T>* toDelete=tmp;
-                tmp= tmp->getNext();
-                delete toDelete;
-            }
+            delete[] adjMatriz[i];
         }
+        delete[] adjMatriz;
     }
-    void addEdge(int src, int dest,T valueSrc, T valueDest);
-    void displayGraph();
+    void addEdge(int src,int dest, int weight);
+    void displayMatrix();
+    void BFS(int startIndex);
+    void DFS(int startIndex);
+    void dijkstra(int startIndex);
 
 };
+
 
 
 #endif //GRAPH_H

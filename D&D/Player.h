@@ -8,8 +8,9 @@ using namespace std;
 
 class Player {
 public:
-    Player(int hp, int lp, string race, string name) : hp(10), lp(100), race(nullptr),name(nullptr){};
-    ~Player();
+    Player() : hp(10), lp(100), race(""),name(""){};
+    Player(int hp, int lp, string race, string name) : hp(hp), lp(lp), race(race),name(name){};
+    ~Player(){}
     //seters y geters
     void setHp(int hp);
     int getHp();
@@ -19,6 +20,7 @@ public:
     string getRace();
     void setName(string name);
     string getName();
+    void display();
 
 
 private:
@@ -28,4 +30,4 @@ private:
 
 
 
-#endif //PLAYE
+#endif //PLAYER_H

@@ -6,6 +6,7 @@
 #include <iostream>
 #include "Monster.h"
 #include "Powers.h"
+#include "Inventory.h"
 
 
 template<typename T>
@@ -32,3 +33,4 @@ void Node<T>::setNext(Node<T> *next) {
 
 template class Node<Monster>;
 template class Node<Powers>;
+template class Node<Inventory>;

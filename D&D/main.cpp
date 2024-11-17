@@ -4,13 +4,25 @@
 #include "Powers.h"
 #include "HashTable.h"
 #include "Inventory.h"
+#include "Dice.h"
+#include "Graph.h"
 
 int main() {
 
 
 
+
     LinkedList<Monster> monster_list;
     monster_list.read_record();
+
+    Monster monster;
+    monster = monster_list.getRandomMonster();
+    monster.display();
+
+    Player you(1,900,"Human","Mario Bautista");
+    you.display();
+
+
 
 
     cout<<"--------------------------------- Lista inventario -------------------------------------"<<endl;
@@ -22,6 +34,8 @@ int main() {
     inventario.insertAtFinish(item2);
     inventario.insertAtFinish(item3);
     inventario.displayList();
+
+
 
 
 
@@ -57,7 +71,15 @@ int main() {
 
     HashP.showTable();
 
-}
+    cout<<"---------------------------- Combate ------------------------"<<endl<<endl;
+
+    p1.accion(1,monster,you,1);
+    p1.accion(2,monster,you,2);
+    p1.accion(3,monster,you,3);
+    p1.accion(4,monster,you,4);
+    p1.accion(5,monster,you,5);
+
+
 
 
 }

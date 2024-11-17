@@ -1,9 +1,4 @@
-//
-// Created by stanl on 29/10/2024.
-//
-
 #include "Monster.h"
-#include <iostream>
 #include <string>
 
 
@@ -43,10 +38,15 @@ void Monster::setArmor_class(int armor_class) {
 int Monster::getArmor_class() {
     return this->armor_class;
 }
-void Monster::setHp(int Hp) {
-    this->hp = hp;
+void Monster::setLp(int lp) {
+    this->lp = lp;
 }
-int Monster::getHp() {
-    return this->hp;
+int Monster::getLp() {
+    return this->lp;
 }
+
+void Monster::display() {
+    cout<<"MONSTER -> "<<"Name: "<<name<<", "<<" Cr: "<<cr<<", "<<"Type: "<<type<<", "<<"Align: "<<align<<", "<<"Size: "<<size<<", "<<"Armor class: "<<armor_class<<", "<<"Life points: "<<lp<<" \n";
+}
+
 

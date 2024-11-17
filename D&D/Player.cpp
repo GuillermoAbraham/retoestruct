@@ -35,3 +35,7 @@ void Player::setName(string name){
 string Player::getName(){
     return this->name;
 }
+
+void Player::display() {
+    cout<<"YOU -> "<<"Name: "<<name<<", "<<"Race: "<<race<<", "<<"Life Points: "<<lp<<endl;
+}

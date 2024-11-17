@@ -1,5 +1,11 @@
+//
+// Created by stanl on 12/11/2024.
+//
 #include <iostream>
 #include <string>
+#include "Monster.h"
+#include "Player.h"
+#include "Dice.h"
 using namespace std;
 
 #ifndef POWERS_H
@@ -13,9 +19,10 @@ public:
     string getDescription();
     void setName(string name);
     void setDescription(string name);
+    void accion(int n, Monster& m, Player& p, int turno);
     ~Powers(){};
     friend std::ostream& operator<<(std::ostream& os,const Powers& P) {
-        os<<"Name: "<<P.name<<" "<<" Description: "<<P.description<<" ";
+        os<<"Name: "<<P.name<<", "<<" Description: "<<P.description<<" ";
         return os;
     }
     bool operator==(const Powers& other) const {
@@ -26,5 +33,6 @@ public:
     }
 private:
     string name, description;
+    Dice dado;
 };
 #endif //POWERS_H

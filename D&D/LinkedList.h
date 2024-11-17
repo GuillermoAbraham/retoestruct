@@ -1,10 +1,11 @@
 //
-// Created by stanl on 29/10/2024.
+// Created by stanl on 10/11/2024.
 //
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include "Node.h"
+#include "Monster.h"
 
 template <typename T>
 class LinkedList {
@@ -18,6 +19,7 @@ public:
     int findElement(T value);
     void deleteElement(T value);
     void read_record();
+    Monster getRandomMonster();
     ~LinkedList() {
         Node<T>* current=head;
         while(current!=nullptr) {
@@ -29,4 +31,3 @@ public:
 };
 
 #endif
-

@@ -7,24 +7,26 @@
 #include "Dice.h"
 #include "Graph.h"
 
+void creatMonster();
+void createPlayer();
+void createInventory();
+void createPowers(Hashtable<Powers>& HashP, Powers& p1);
+void combate(Monster& monster, Player& you, Powers& p1);
+
 int main() {
 
-
-
-
+    //Creación del mosntruo
     LinkedList<Monster> monster_list;
     monster_list.read_record();
-
     Monster monster;
     monster = monster_list.getRandomMonster();
     monster.display();
 
+    //Creación del jugador
     Player you(1,900,"Human","Mario Bautista");
     you.display();
 
-
-
-
+    //creación inventario
     cout<<"--------------------------------- Lista inventario -------------------------------------"<<endl;
     LinkedList<Inventory> inventario;
     Inventory item1("Llave","Esto abre algo?",1);
@@ -35,12 +37,42 @@ int main() {
     inventario.insertAtFinish(item3);
     inventario.displayList();
 
-
-
-
-
+    //Creación poderes
     Hashtable<Powers> HashP;
-    Powers p1("Eldritch Blast","Este hechizo conjura una rafaga de energia magica oscura que se lanza contra un enemigo. HP = 1.5 * d(10) ");
+    Powers p1;
+    createPowers(HashP, p1);
+    HashP.showTable();
+
+
+    int arrPowers[5];
+    int nPower;
+    for(int i = 0; i<5;i++) {
+        cout<<"Ingrese el numero del poder que quiere agregar a su repertorio ["<<i+1<<"]: ";
+        cin>>nPower;
+        arrPowers[i] = nPower;
+    }
+
+    for(int i = 0; i<5; i++) {
+        //Método de hashtable que imprima los atributos del hechizo i
+    }
+
+    combate(monster,you,p1);
+
+}
+
+void combate(Monster& monster, Player& you, Powers& p1) {
+    cout<<"---------------------------- Combate ------------------------"<<endl<<endl;
+
+    p1.accion(1,monster,you,1);
+    p1.accion(2,monster,you,2);
+    p1.accion(3,monster,you,3);
+    p1.accion(4,monster,you,4);
+    p1.accion(5,monster,you,5);
+}
+
+void createPowers(Hashtable<Powers>& HashP, Powers& p1) {
+    p1.setName("Eldritch Blast");
+    p1.setDescription("Este hechizo conjura una rafaga de energia magica oscura que se lanza contra un enemigo. HP = 1.5 * d(10) ");
     HashP.insert(p1,1);
     Powers p2("Invisibility", "Eres invisible durante el proximo turno, por lo que no te pueden hacer dano");
     HashP.insert(p2,2);
@@ -68,18 +100,4 @@ int main() {
     HashP.insert(p13,13);
     Powers p14("Compound seizure", "Infliges dano proporcional al numero de turno actual por combate. HP = d(10) * #turno");
     HashP.insert(p14,14);
-
-    HashP.showTable();
-
-    cout<<"---------------------------- Combate ------------------------"<<endl<<endl;
-
-    p1.accion(1,monster,you,1);
-    p1.accion(2,monster,you,2);
-    p1.accion(3,monster,you,3);
-    p1.accion(4,monster,you,4);
-    p1.accion(5,monster,you,5);
-
-
-
-
 }

@@ -94,6 +94,16 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             break;
         case 6:
             //Recibes puntos de vida. LP = 2 * d(10)
+            cout<<"\nTurno: "<<turno<<endl;
+            
+            //Turno Player:
+            p.setLp(p.getLp()+(2*dado.getRandomDice2()));
+            
+            //Turno Monster:
+            p.setLp(p.getLp()-dado.getRandomDice1());
+
+            m.display();
+            p.display();
 
             break;
         case 7:

@@ -8,7 +8,7 @@
 #include "Graph.h"
 
 void creatMonster();
-void createPlayer();
+void createPlayer(Player& you);
 void createInventory();
 void createPowers(Hashtable<Powers>& HashP, Powers& p1);
 void combate(Monster& monster, Player& you, Powers& p1);
@@ -23,7 +23,8 @@ int main() {
     monster.display();
 
     //Creación del jugador
-    Player you(1,900,"Human","Mario Bautista");
+    Player you;
+    createPlayer();
     you.display();
 
     //creación inventario
@@ -58,6 +59,10 @@ int main() {
 
     combate(monster,you,p1);
 
+}
+
+void createPlayer(Player& you) {
+    
 }
 
 void combate(Monster& monster, Player& you, Powers& p1) {

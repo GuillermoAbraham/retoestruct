@@ -11,7 +11,8 @@ void creatMonster();
 void createPlayer(Player& you);
 void createInventory();
 void createPowers(Hashtable<Powers>& HashP, Powers& p1);
-void combate(Monster& monster, Player& you, Powers& p1);
+int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[]);
+int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[],LinkedList<Monster> monster_list);
 
 int main() {
 
@@ -57,30 +58,52 @@ int main() {
         //Método de hashtable que imprima los atributos del hechizo i
     }
 
-    combate(monster,you,p1);
+    juego(monster,you,p1,arrPowers,monster_list);
 
 }
 
 void createPlayer(Player& you) {
     string usuario;
-    string raza; 
-   cout<<"Ingrese su usuario: ";
-    cin.getline(cin, Usuario);
+    string raza;
+    cout<<"Ingrese su usuario: ";
+    getline(cin, usuario);
     you.setName(usuario);
     cout<<"Ingresa tu raza: ";
-    cin.getline(cin, raza);
+    getline(cin, raza);
     you.setRace(raza);
-    
+    you.setLp(50);
+
 }
 
-void combate(Monster& monster, Player& you, Powers& p1) {
-    cout<<"---------------------------- Combate ------------------------"<<endl<<endl;
 
-    p1.accion(1,monster,you,1);
-    p1.accion(2,monster,you,2);
-    p1.accion(3,monster,you,3);
-    p1.accion(4,monster,you,4);
-    p1.accion(5,monster,you,5);
+int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[]) {
+    cout<<"---------------------------- Combate ------------------------"<<endl<<endl;
+    int nPower = -1;
+    int turno = 0;
+    while(monster.getLp() > 0) {
+        turno++;
+        bool powerValido = false;
+
+        while (!powerValido) {
+            cout<<"Ingresa un poder a usar: ";
+            cin>>nPower;
+
+            for (int i = 0; i < 5; i++) {
+                if (nPower == arrPowers[i]) {
+                    powerValido = true;
+                    break;
+                }
+            }
+        }
+
+        p1.accion(nPower,monster,you,turno);
+        if(you.getLp() <=0) {
+            return 76;
+        }
+    }
+    return 45;
+
+
 }
 
 void createPowers(Hashtable<Powers>& HashP, Powers& p1) {
@@ -113,4 +136,15 @@ void createPowers(Hashtable<Powers>& HashP, Powers& p1) {
     HashP.insert(p13,13);
     Powers p14("Compound seizure", "Infliges dano proporcional al numero de turno actual por combate. HP = d(10) * #turno");
     HashP.insert(p14,14);
+}
+
+int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list) {
+    int condicion = combate(monster,you,p1,arrPowers);
+    if (condicion == 45) {
+        monster = monster_list.getRandomMonster();
+        juego( monster, you, p1, arrPowers,monster_list);
+    }else {
+        cout<<"Game over"<<endl;
+        return 0;
+    }
 }

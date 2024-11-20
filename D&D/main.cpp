@@ -138,9 +138,11 @@ void createPowers(Hashtable<Powers>& HashP, Powers& p1) {
     HashP.insert(p14,14);
 }
 
+//agregar nuevo arreglo de monstruos derrotados
 int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list) {
     int condicion = combate(monster,you,p1,arrPowers);
     if (condicion == 45) {
+        //Que se agregue a la posición el nombre del monstruo, max 10
         monster = monster_list.getRandomMonster();
         juego( monster, you, p1, arrPowers,monster_list);
     }else {

@@ -24,7 +24,7 @@ int main() {
 
     //Creación del jugador
     Player you;
-    createPlayer();
+    createPlayer(you);
     you.display();
 
     //creación inventario
@@ -62,6 +62,14 @@ int main() {
 }
 
 void createPlayer(Player& you) {
+    string usuario;
+    string raza; 
+   cout<<"Ingrese su usuario: ";
+    cin.getline(cin, Usuario);
+    you.setName(usuario);
+    cout<<"Ingresa tu raza: ";
+    cin.getline(cin, raza);
+    you.setRace(raza);
     
 }
 

@@ -1,16 +1,5 @@
-//
-// Created by stanl on 29/10/2024.
-//
 
 #include "Player.h"
-
-void Player:: setHp(int hp){
-    this->hp=hp;
-}
-
-int Player::getHp(){
-    return this->hp;
-}
 
 void Player:: setLp(int lp){
     this->lp=lp;

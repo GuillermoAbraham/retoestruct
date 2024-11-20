@@ -1,3 +1,6 @@
+//
+// Created by stanl on 12/11/2024.
+//
 #include <iostream>
 #include <string>
 using namespace std;
@@ -8,12 +11,10 @@ using namespace std;
 
 class Player {
 public:
-    Player() : hp(10), lp(100), race(""),name(""){};
-    Player(int hp, int lp, string race, string name) : hp(hp), lp(lp), race(race),name(name){};
+    Player() :  lp(100), race(""),name(""){};
+    Player(int lp, string race, string name) :  lp(lp), race(race),name(name){};
     ~Player(){}
     //seters y geters
-    void setHp(int hp);
-    int getHp();
     void setLp(int lp);
     int getLp();
     void setRace(string race);
@@ -24,7 +25,7 @@ public:
 
 
 private:
-    int hp, lp;
+    int  lp;
     string race, name; //lista de monstruos faltante
 };
 

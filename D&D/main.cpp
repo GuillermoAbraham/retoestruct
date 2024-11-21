@@ -39,6 +39,14 @@ int main() {
     inventario.insertAtFinish(item3);
     inventario.displayList();
 
+//Mostrar monstruos derrotados mediante una lista ligada
+/*  LinkedList<Monster> defeated;
+    const size_t MAX_DEFEATED = 10;
+    defeated.read_record();
+    Monster monster;
+    monster = defeated.getRandomMonster();
+    monster.display(); */
+    
     //Creación poderes
     Hashtable<Powers> HashP;
     Powers p1;
@@ -139,9 +147,10 @@ void createPowers(Hashtable<Powers>& HashP, Powers& p1) {
 }
 
 //agregar nuevo arreglo de monstruos derrotados
-int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list) {
+int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list, Linkedlist<Monster> defeated) {
     int condicion = combate(monster,you,p1,arrPowers);
     if (condicion == 45) {
+        //monster = defeated.display();
         //Que se agregue a la posición el nombre del monstruo, max 10
         monster = monster_list.getRandomMonster();
         juego( monster, you, p1, arrPowers,monster_list);

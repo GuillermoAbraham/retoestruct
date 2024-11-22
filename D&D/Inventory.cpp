@@ -1,3 +1,7 @@
+//
+// Created by stanl on 12/11/2024.
+//
+
 #include "Inventory.h"
 
 void Inventory::setName(string name) {

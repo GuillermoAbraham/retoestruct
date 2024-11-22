@@ -1,7 +1,3 @@
-//
-// Created by stanl on 29/10/2024.
-//
-
 #include "Node.h"
 #include <iostream>
 #include "Monster.h"

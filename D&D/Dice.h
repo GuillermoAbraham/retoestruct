@@ -1,6 +1,4 @@
-//
-// Created by stanl on 16/11/2024.
-//
+
 #ifndef DICE_H
 #define DICE_H
 

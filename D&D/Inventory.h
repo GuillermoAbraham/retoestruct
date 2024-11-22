@@ -1,6 +1,3 @@
-//
-// Created by stanl on 12/11/2024.
-//
 
 #ifndef INVENTORY_H
 #define INVENTORY_H
@@ -14,7 +11,7 @@ public:
     Inventory(): name(""), description(""), amount(0){};
     Inventory(string name, string description, int amount): name(name), description(description), amount(amount){};
 
-    ~Inventory();
+    ~Inventory(){}
     void setName(string name);
     string getName();
     void setDescription(string description);
@@ -22,7 +19,7 @@ public:
     void setAmount(int amount);
     int getAmount();
     friend std::ostream& operator<<(std::ostream& os,const Inventory& I) {
-        os<<"Name: "<<I.name<<" "<<" Cr: "<<I.description<<" "<<"Type: "<<I.amount<<" ";
+        os<<"Name: "<<I.name<<", "<<" description: "<<I.description<<", "<<"Amount: "<<I.amount<<" ";
         return os;
     }
     bool operator==(const Inventory& other) const {

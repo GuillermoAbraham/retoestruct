@@ -1,5 +1,5 @@
 //
-// Created by stanl on 29/10/2024.
+// Created by stanl on 10/11/2024.
 //
 #include <iostream>
 #include <string>
@@ -13,7 +13,8 @@ using namespace std;
 class Monster {
 public:
     Monster(): name(""), cr(0), type(""),align(""),size(""),armor_class(0),lp(0){};
-    Monster(string name, int cr, string type, string align, string size, int armor_class, int hp): name(name), cr(cr), type(type),align(align),size(size),armor_class(armor_class),lp(lp){};
+    Monster(string name, int cr, string type, string align, string size, int armor_class, int hp): name(name), cr(cr), type(type),align(align),size(size),armor_class(armor_class),lp(hp)
+    {};
 
     ~Monster(){}
     //métodos seters y geters
@@ -54,3 +55,4 @@ private:
 
 
 #endif //MONSTER_H
+

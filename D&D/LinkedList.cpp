@@ -1,8 +1,4 @@
-//
-// Created by stanl on 29/10/2024.
-////
-// Created by stanl on 10/11/2024.
-//
+
 #include "linkedList.h"
 #include <iostream>
 #include <fstream>

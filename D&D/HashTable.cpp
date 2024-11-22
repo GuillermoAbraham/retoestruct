@@ -1,4 +1,5 @@
 
+
 #include "Hashtable.h"
 #include "Powers.h"
 #include <iostream>
@@ -41,7 +42,7 @@ void Hashtable<T>::showTable() {
         if(table[i]!=nullptr){
             Node<T>* temp= table[i];
             while(temp!=nullptr) {
-                cout<<temp->getData()<< " "<<temp<<", ";
+                cout<<temp->getData()<< " ";
                 temp= temp->getNext();
             }
             cout<<endl;
@@ -51,5 +52,13 @@ void Hashtable<T>::showTable() {
     }
     cout<<"--------END---------"<<endl;
 }
+
+template <typename T>
+void Hashtable<T>::showPower(int i) {
+    int index = i;
+    Node<T>* temp = table[index];
+    cout<<temp->getData();
+}
+
 
 template class Hashtable<Powers>;

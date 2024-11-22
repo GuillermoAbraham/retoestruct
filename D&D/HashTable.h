@@ -1,6 +1,13 @@
+//
+// Created by stanl on 12/11/2024.
+//
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include "Node.h"
+#include "Monster.h"
+#include "Powers.h"
+#include "Player.h"
+#include "Dice.h"
 #include <iostream>
 using namespace std;
 
@@ -23,6 +30,7 @@ public:
     Node<T>* search(T data, int num);
     void remove(T data, int num);
     void showTable();
+    void showPower(int i);
 
 
 };

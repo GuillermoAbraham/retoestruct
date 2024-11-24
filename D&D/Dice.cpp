@@ -1,6 +1,4 @@
-//
-// Created by stanl on 16/11/2024.
-//
+
 #include "Dice.h"
 #include <iostream>
 #include <string>

@@ -1,5 +1,6 @@
 
 #include "Player.h"
+using namespace std;
 
 void Player:: setLp(int lp){
     this->lp=lp;

@@ -46,12 +46,12 @@ int main() {
     HashP.showTable();
 
     //Mostrar monstruos derrotados mediante una lista ligada
-    /*LinkedList<Monster> defeated;
-    const size_t MAX_DEFEATED = 10;
-    defeated.read_record();
-    Monster monster;
-    monster = defeated.getRandomMonster();
-    monster.display(); */
+    LinkedList<Monster> defeated; //Está bien, creas la lista llamada "defeated"
+    const size_t MAX_DEFEATED = 10; //No es necasrio decir que va a tener 10 espacios, porque la lista se va a ir expandiendo por sí sola. Es dinámica. Si le dices el espacio es estática y para eso mejor hacemos un array.
+    defeated.read_record();//No necesitamos leer los monstruos del archivo.csv, porque a esta lista solo le vamos a agregar el nombre del monstruo que se derrotó actualmente.
+    Monster monster;//Ya no es necesario crear un monstruo para guardar el mosntruo aleatorio porque ya se hizo arriba.
+    monster = defeated.getRandomMonster(); //tampoco es necesario porque ya se hizo arriba
+    monster.display(); // Igual ya no es necario porque el monstruo actual se muestra arriba. Para mostrar la lista de monstruos derrotados se tiene que hacer un "for()" pero al final del juego
 
 
     int arrPowers[5];
@@ -150,12 +150,12 @@ void createPowers(Hashtable<Powers>& HashP, Powers& p1) {
 int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list) {
     int condicion = combate(monster,you,p1,arrPowers);
     if (condicion == 45) {
-        // en esta línea añadir al monstruo derrotado a la lista de mosntruos derrotados
+        // en esta línea añadir al monstruo derrotado a la lista de mosntruos derrotados. Se hará insertando el nombre del monstruo actual (monster) en la lista defeated. Usa un método getName.
         monster = monster_list.getRandomMonster();
         juego( monster, you, p1, arrPowers,monster_list);
     }else {
         cout<<"Game over"<<endl;
-        //En esta línea imprimir la lista de monstruos derrotados
+        //En esta línea imprimir la lista de monstruos derrotados. Usa el metodo displayDefeatedMonsters().
         return 0;
     }
 }

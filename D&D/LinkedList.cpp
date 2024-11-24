@@ -1,4 +1,6 @@
-
+//
+// Created by stanl on 10/11/2024.
+//
 #include "linkedList.h"
 #include <iostream>
 #include <fstream>
@@ -38,16 +40,7 @@ void LinkedList<T>::insertAtFinish(T value) {
     }
 }
 
-template<typename T>
-void LinkedList<T>::displayList() {
-    Node<T>* current=head;
-    cout<<"[";
-    while(current!= nullptr) {
-        cout<<current->getData()<<" \n";
-        current= current->getNext();
-    }
-    cout<<"]"<<endl;
-}
+
 
 template<typename T>
 int LinkedList<T>::findElement(T value) {
@@ -153,6 +146,23 @@ Monster LinkedList<Monster>::getRandomMonster() {
     }
 }
 
+template<typename T>
+void LinkedList<T>::displayList() {
+    Node<T>* current=head;
+    cout<<"[";
+    while(current!= nullptr) {
+        cout<<current->getData()<<" \n";
+        current= current->getNext();
+    }
+    cout<<"]"<<endl;
+}
+
+template<>
+void LinkedList<string>::displayDefeatedMonsters() {
+    //básate en el metodo displayList() para imprimir los nombres
+}
+
 
 template class LinkedList<Monster>;
 template class LinkedList<Inventory>;
+template class LinkedList<string>;

@@ -19,6 +19,7 @@ public:
     int findElement(T value);
     void deleteElement(T value);
     void read_record();
+    void displayDefeatedMonsters();
     Monster getRandomMonster();
     ~LinkedList() {
         Node<T>* current=head;

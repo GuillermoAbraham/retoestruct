@@ -203,7 +203,7 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             //Turno player
             cout<<"¡¿Pero qué esta pasando?!, el mosnstruo se esta desintegrando"<<endl;
 
-            //metodo delete
+            m.setLp(m.getLp() - 999);
 
             cout<<"Supongo que esto es una victoria para mi"<<endl;
 

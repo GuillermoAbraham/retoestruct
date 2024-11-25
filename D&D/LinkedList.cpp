@@ -160,6 +160,13 @@ void LinkedList<T>::displayList() {
 template<>
 void LinkedList<string>::displayDefeatedMonsters() {
     //básate en el metodo displayList() para imprimir los nombres
+    Node<T>* current=head;
+    cout<<"[";
+    while(current!= nullptr) {
+        cout<<current->getData()<<" ,";
+        current= current->getNext();
+    }
+    cout<<"]"<<endl;
 }
 
 

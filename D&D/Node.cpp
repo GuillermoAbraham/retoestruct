@@ -1,3 +1,4 @@
+
 #include "Node.h"
 #include <iostream>
 #include "Monster.h"
@@ -30,3 +31,4 @@ void Node<T>::setNext(Node<T> *next) {
 template class Node<Monster>;
 template class Node<Powers>;
 template class Node<Inventory>;
+template class Node<string>;

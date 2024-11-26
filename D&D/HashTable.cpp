@@ -42,7 +42,7 @@ void Hashtable<T>::showTable() {
         if(table[i]!=nullptr){
             Node<T>* temp= table[i];
             while(temp!=nullptr) {
-                cout<<temp->getData()<< " ";
+                cout<<"["<<i+1<<"]: "<<temp->getData()<< " ";
                 temp= temp->getNext();
             }
             cout<<endl;

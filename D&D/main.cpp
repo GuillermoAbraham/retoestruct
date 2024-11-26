@@ -9,6 +9,7 @@
 #include <cstdlib>
 
 
+
 void createMonster();
 void createPlayer(Player& you);
 void createInventory();
@@ -16,7 +17,7 @@ void createGraph(Graph& calabozo);
 void createPowers(Hashtable<Powers>& HashP, Powers& p1);
 void assignPowers( Hashtable<Powers>& HashP, int arrPowers[], int randomDicePowers[]);
 int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[], int& conteoN10, int& turno, Dice dado, int randomDicePowers[]);
-int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[],LinkedList<Monster> monster_list, int& conteoN10, Dice dado, int randomDicePowers[]);
+int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[],LinkedList<Monster> monster_list, int& conteoN10, Dice dado, int randomDicePowers[], LinkedList<string>& defeated, LinkedList<Inventory>& backpack);
 void crearArregloDadosPowers(int randomDicePowers[]);
 bool checarDado(int randomDicePowers[], int randomN);
 int conteoN10 = 0;
@@ -37,7 +38,6 @@ int main() {
     monster_list.read_record();
     Monster monster;
     monster = monster_list.getRandomMonster();
-    monster.display();
 
     //Creación del jugador
     Player you;
@@ -67,20 +67,15 @@ int main() {
     assignPowers(HashP, arrPowers, randomDicePowers);
 
     //Mostrar monstruos derrotados mediante una lista ligada
-    /*LinkedList<Monster> defeated; //Está bien, creas la lista llamada "defeated"
-    const size_t MAX_DEFEATED = 10; //No es necasrio decir que va a tener 10 espacios, porque la lista se va a ir expandiendo por sí sola. Es dinámica. Si le dices el espacio es estática y para eso mejor hacemos un array.
-    defeated.read_record();//No necesitamos leer los monstruos del archivo.csv, porque a esta lista solo le vamos a agregar el nombre del monstruo que se derrotó actualmente.
-    Monster monster;//Ya no es necesario crear un monstruo para guardar el mosntruo aleatorio porque ya se hizo arriba.
-    monster = defeated.getRandomMonster(); //tampoco es necesario porque ya se hizo arriba
-    monster.display(); // Igual ya no es necario porque el monstruo actual se muestra arriba. Para mostrar la lista de monstruos derrotados se tiene que hacer un "for()" pero al final del juego
-*/
+    LinkedList<string> defeated; //Está bien, creas la lista llamada "defeated"
 
 
 
 
 
 
-    juego(monster,you,p1,arrPowers,monster_list, conteoN10,dado,randomDicePowers);
+
+    juego(monster,you,p1,arrPowers,monster_list, conteoN10,dado,randomDicePowers,defeated, backpack);
 
 }
 
@@ -88,9 +83,11 @@ void createPlayer(Player& you) {
     string usuario;
     string raza;
     bool razaValida = false;
-    cout << "Ingrese su usuario: ";
+    cout<<"Ingrese su usuario: ";
     getline(cin, usuario);
     you.setName(usuario);
+    you.setRace(raza);
+    you.setLp(1);
     while (!razaValida) {
         cout << "Ingresa tu raza (Elf, Human, Dwarf): ";
         getline(cin, raza);
@@ -101,6 +98,8 @@ void createPlayer(Player& you) {
             cout << "Por favor ingresa una raza valida." << endl;
         }
     }
+
+}
 
 void createGraph(Graph& calabozo) {
     calabozo.addEdge(1,2,0);
@@ -279,13 +278,12 @@ int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[], int& con
     return 45;//derrota al mosntruo
 }
 
-int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list, int& conteoN10, Dice dado, int randomDicePowers[]) {
+int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list, int& conteoN10, Dice dado, int randomDicePowers[], LinkedList<string>& defeated, LinkedList<Inventory>& backpack) {
     int condicion = combate(monster,you,p1,arrPowers, conteoN10,turno, dado, randomDicePowers);
     if (condicion == 45) {
-        defeated.insertAtFinish(monster); // Guardar el monstruo derrota
-        // en esta línea añadir al monstruo derrotado a la lista de mosntruos derrotados. Se hará insertando el nombre del monstruo actual (monster) en la lista defeated. Usa un método getName.
+        defeated.insertAtFinish(monster.getName());// en esta línea añadir al monstruo derrotado a la lista de mosntruos derrotados. Se hará insertando el nombre del monstruo actual (monster) en la lista defeated. Usa un método getName.
         monster = monster_list.getRandomMonster();
-        juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers);
+        juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers,defeated, backpack);
 
     }else if(condicion == 76) {
         cout<<"Game over"<<endl;
@@ -303,6 +301,8 @@ int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList
         //En esta línea imprimir la lista de monstruos derrotados. Usa el metodo displayDefeatedMonsters().
         return 0;
     }else {
-        juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers);
+        juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers,defeated,backpack);
     }
 }
+
+

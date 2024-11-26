@@ -277,20 +277,27 @@ int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[], int& con
 int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list, int& conteoN10, Dice dado, int randomDicePowers[]) {
     int condicion = combate(monster,you,p1,arrPowers, conteoN10,turno, dado, randomDicePowers);
     if (condicion == 45) {
+        defeated.insertAtFinish(monster); // Guardar el monstruo derrota
         // en esta línea añadir al monstruo derrotado a la lista de mosntruos derrotados. Se hará insertando el nombre del monstruo actual (monster) en la lista defeated. Usa un método getName.
         monster = monster_list.getRandomMonster();
         juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers);
 
     }else if(condicion == 76) {
         cout<<"Game over"<<endl;
+        cout << "\n-------------------- Resumen del juego --------------------" << endl;
+        cout << "Monstruos derrotados: " << endl;
+        defeated.displayList(); // Mostrar monstruos derrotados
+
+        cout << "\nObjetos recolectados: " << endl;
+        backpack.displayList(); // Mostrar objetos recolectados
+
+        cout << "\nEstadísticas del jugador: " << endl;
+        you.display(); // Mostrar información del jugador final
+
+        cout << "----------------------------------------------------------" << endl;
         //En esta línea imprimir la lista de monstruos derrotados. Usa el metodo displayDefeatedMonsters().
         return 0;
     }else {
         juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers);
     }
 }
-
-
-
-
-

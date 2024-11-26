@@ -87,7 +87,7 @@ void createPlayer(Player& you) {
     getline(cin, usuario);
     you.setName(usuario);
     you.setRace(raza);
-    you.setLp(1);
+    you.setLp(50);
     while (!razaValida) {
         cout << "Ingresa tu raza (Elf, Human, Dwarf): ";
         getline(cin, raza);

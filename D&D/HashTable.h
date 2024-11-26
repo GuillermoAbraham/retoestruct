@@ -1,6 +1,4 @@
-//
-// Created by stanl on 12/11/2024.
-//
+
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
 #include "Node.h"
@@ -15,7 +13,7 @@ template <typename T>
 
 class Hashtable {
 private:
-    static const int capacity=10;
+    static const int capacity=14;
     Node<T>* table[capacity];
     int hash(int key);
 

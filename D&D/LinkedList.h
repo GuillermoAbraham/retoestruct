@@ -1,6 +1,3 @@
-//
-// Created by stanl on 10/11/2024.
-//
 
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H

@@ -1,6 +1,4 @@
-//
-// Created by stanl on 12/11/2024.
-//
+
 #include <iostream>
 #include <string>
 #include "Monster.h"
@@ -19,7 +17,8 @@ public:
     string getDescription();
     void setName(string name);
     void setDescription(string name);
-    void accion(int n, Monster& m, Player& p, int turno);
+    void accion(int n, Monster& m, Player& p, int& turnoint, int& conteoN10, int daño, int vida, int dañoM,bool& invisibilidad, int& dañoDobleHechizo, int dañoDado);
+
     ~Powers(){};
     friend std::ostream& operator<<(std::ostream& os,const Powers& P) {
         os<<"Name: "<<P.name<<", "<<" Description: "<<P.description<<" ";

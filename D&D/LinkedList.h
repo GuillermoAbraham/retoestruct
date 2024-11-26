@@ -18,6 +18,7 @@ public:
     void read_record();
     void displayDefeatedMonsters();
     Monster getRandomMonster();
+    Inventory getRandomItem();
     ~LinkedList() {
         Node<T>* current=head;
         while(current!=nullptr) {

@@ -1,6 +1,4 @@
-//
-// Created by stanl on 10/11/2024.
-//
+
 #include "linkedList.h"
 #include <iostream>
 #include <fstream>
@@ -160,7 +158,7 @@ void LinkedList<T>::displayList() {
 template<>
 void LinkedList<string>::displayDefeatedMonsters() {
     //básate en el metodo displayList() para imprimir los nombres
-    Node<T>* current=head;
+    Node<string>* current=head;
     cout<<"[";
     while(current!= nullptr) {
         cout<<current->getData()<<" ,";

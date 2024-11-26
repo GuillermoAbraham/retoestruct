@@ -238,6 +238,7 @@ bool checarDado(int randomDicePowers[], int randomN) {
 
 int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[], int& conteoN10, int &turno, Dice dado, int randomDicePowers[]) {
     cout<<"---------------------------- Combate ------------------------"<<endl<<endl; //
+    monster.display();
     string opcion;
     while(monster.getLp() > 0) {
         turno++;

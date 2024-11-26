@@ -87,15 +87,20 @@ int main() {
 void createPlayer(Player& you) {
     string usuario;
     string raza;
-    cout<<"Ingrese su usuario: ";
+    bool razaValida = false;
+    cout << "Ingrese su usuario: ";
     getline(cin, usuario);
     you.setName(usuario);
-    cout<<"Ingresa tu raza: ";
-    getline(cin, raza);
-    you.setRace(raza);
-    you.setLp(50);
-
-}
+    while (!razaValida) {
+        cout << "Ingresa tu raza (Elf, Human, Dwarf): ";
+        getline(cin, raza);
+        if (raza == "Elf" || raza == "Human" || raza == "Dwarf") {
+            razaValida = true;
+        } else {
+            cout << "Eres de una raza alienigena?" << endl;
+            cout << "Por favor ingresa una raza valida." << endl;
+        }
+    }
 
 void createGraph(Graph& calabozo) {
     calabozo.addEdge(1,2,0);

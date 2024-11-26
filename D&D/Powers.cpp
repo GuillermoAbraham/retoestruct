@@ -478,6 +478,7 @@ void Powers::accion(int n, Monster& m, Player& p, int& turno, int& conteoN10, in
                     }
                 }
             }
+            cout<<"----------- Estadisticas actuales -------------"<<endl;
 
             m.display();
             p.display();

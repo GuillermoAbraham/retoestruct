@@ -54,10 +54,14 @@ int main() {
     Inventory item1("Llave","Esto abre algo?",1);
     Inventory item2("Mapa","El One Piece esta muy cerca ....",1);
     Inventory item3("Nullptr","Esto no es cero",1);
+    Inventory item4("Posión del dinero maldito","Estas en bancarrota .-.",1);
+    Inventory item5("Carta","Tus familiares quieren que llegues a salvo <3 ",1);
     inventario.insertAtFinish(item1);
     inventario.insertAtFinish(item2);
     inventario.insertAtFinish(item3);
-    inventario.displayList();
+    Inventario.insertAtFinish(item4);
+    Inventario.insertAtFinish(item5);
+    Inventory item = inventario.getRandomItem();
 
     //Creación poderes
     Hashtable<Powers> HashP;
@@ -282,6 +286,8 @@ int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[], int& con
 int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list, int& conteoN10, Dice dado, int randomDicePowers[], LinkedList<string>& defeated, LinkedList<Inventory>& backpack) {
     int condicion = combate(monster,you,p1,arrPowers, conteoN10,turno, dado, randomDicePowers);
     if (condicion == 45) {
+        backpack.insertAtFinish(item);
+        item = Inventory.getRandomItem();
         defeated.insertAtFinish(monster.getName());// en esta línea añadir al monstruo derrotado a la lista de mosntruos derrotados. Se hará insertando el nombre del monstruo actual (monster) en la lista defeated. Usa un método getName.
         monster = monster_list.getRandomMonster();
         juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers,defeated, backpack);

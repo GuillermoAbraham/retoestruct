@@ -145,6 +145,25 @@ Monster LinkedList<Monster>::getRandomMonster() {
         }
     }
 }
+//
+template<>
+Inventory LinkedList<Inventory>::getRandomItem() {
+    srand(time(NULL));
+    int random=rand()%(5);
+    Node<Inventory>* current=head;
+    int index = 1;
+    while(current!= nullptr) {
+        if(random == index) {
+            Inventory value = current->getData();
+            return value;
+        }else {
+            current= current->getNext();
+            index+=1;
+        }
+    }
+}
+
+
 
 template<typename T>
 void LinkedList<T>::displayList() {

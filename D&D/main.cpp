@@ -6,15 +6,31 @@
 #include "Inventory.h"
 #include "Dice.h"
 #include "Graph.h"
+#include <cstdlib>
 
-void creatMonster();
+
+void createMonster();
 void createPlayer(Player& you);
 void createInventory();
+void createGraph(Graph& calabozo);
 void createPowers(Hashtable<Powers>& HashP, Powers& p1);
-int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[]);
-int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[],LinkedList<Monster> monster_list);
+void assignPowers( Hashtable<Powers>& HashP, int arrPowers[], int randomDicePowers[]);
+int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[], int& conteoN10, int& turno, Dice dado, int randomDicePowers[]);
+int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[],LinkedList<Monster> monster_list, int& conteoN10, Dice dado, int randomDicePowers[]);
+void crearArregloDadosPowers(int randomDicePowers[]);
+bool checarDado(int randomDicePowers[], int randomN);
+int conteoN10 = 0;
+int daño, vida, dañoM,dañoDobleHechizo, dañoDado;
+int turno = 0;
+bool invisibilidad = false;
+int arrPowers[5];
+int randomDicePowers[5] = {0};
+
 
 int main() {
+    //creación del calabozo
+    Graph calabozo(21);
+    createGraph(calabozo);
 
     //Creación del mosntruo
     LinkedList<Monster> monster_list;
@@ -28,11 +44,15 @@ int main() {
     createPlayer(you);
     you.display();
 
+    //creación del dado
+    Dice dado;
+
     //creación inventario
     cout<<"--------------------------------- Lista inventario -------------------------------------"<<endl;
-    LinkedList<Inventory> inventario;
+    LinkedList<Inventory> inventario;// de aqui se van a sacar los objetos random tras cada victoria
+    LinkedList<Inventory> backpack; // Aquí se van a guardarv los objetos que suelten los monstruos
     Inventory item1("Llave","Esto abre algo?",1);
-    Inventory item2("Mapa","El One Piece esta muy cerca de ti....",1);
+    Inventory item2("Mapa","El One Piece esta muy cerca ....",1);
     Inventory item3("Nullptr","Esto no es cero",1);
     inventario.insertAtFinish(item1);
     inventario.insertAtFinish(item2);
@@ -44,30 +64,23 @@ int main() {
     Powers p1;
     createPowers(HashP, p1);
     HashP.showTable();
+    assignPowers(HashP, arrPowers, randomDicePowers);
 
     //Mostrar monstruos derrotados mediante una lista ligada
-    LinkedList<Monster> defeated; //Está bien, creas la lista llamada "defeated"
+    /*LinkedList<Monster> defeated; //Está bien, creas la lista llamada "defeated"
     const size_t MAX_DEFEATED = 10; //No es necasrio decir que va a tener 10 espacios, porque la lista se va a ir expandiendo por sí sola. Es dinámica. Si le dices el espacio es estática y para eso mejor hacemos un array.
     defeated.read_record();//No necesitamos leer los monstruos del archivo.csv, porque a esta lista solo le vamos a agregar el nombre del monstruo que se derrotó actualmente.
     Monster monster;//Ya no es necesario crear un monstruo para guardar el mosntruo aleatorio porque ya se hizo arriba.
     monster = defeated.getRandomMonster(); //tampoco es necesario porque ya se hizo arriba
     monster.display(); // Igual ya no es necario porque el monstruo actual se muestra arriba. Para mostrar la lista de monstruos derrotados se tiene que hacer un "for()" pero al final del juego
+*/
 
 
-    int arrPowers[5];
-    int nPower;
-    for(int i = 0; i<5;i++) {
-        cout<<"Ingrese el numero del poder que quiere agregar a su repertorio ["<<i+1<<"]: ";
-        cin>>nPower;
-        arrPowers[i] = nPower;
-    }
-    cout<<"Tus hechizos: "<<endl;
-    for(int i = 0; i<5; i++) {
-        HashP.showPower(i);
-        cout<<endl;
-    }
 
-    juego(monster,you,p1,arrPowers,monster_list);
+
+
+
+    juego(monster,you,p1,arrPowers,monster_list, conteoN10,dado,randomDicePowers);
 
 }
 
@@ -84,34 +97,55 @@ void createPlayer(Player& you) {
 
 }
 
-
-int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[]) {
-    cout<<"---------------------------- Combate ------------------------"<<endl<<endl;
-    int nPower = -1;
-    int turno = 0;
-    while(monster.getLp() > 0) {
-        turno++;
-        bool powerValido = false;
-
-        while (!powerValido) {
-            cout<<"Ingresa un poder a usar: ";
-            cin>>nPower;
-
-            for (int i = 0; i < 5; i++) {
-                if (nPower == arrPowers[i]) {
-                    powerValido = true;
-                    break;
-                }
-            }
-        }
-
-        p1.accion(nPower,monster,you,turno);
-        if(you.getLp() <=0) {
-            return 76;
-        }
-    }
-    return 45;
-
+void createGraph(Graph& calabozo) {
+    calabozo.addEdge(1,2,0);
+    calabozo.addEdge(1,4,0);
+    calabozo.addEdge(1,3,0);
+    calabozo.addEdge(1,5,0);
+    calabozo.addEdge(2,6,0);
+    calabozo.addEdge(2,4,0);
+    calabozo.addEdge(3,4,0);
+    calabozo.addEdge(3,7,0);
+    calabozo.addEdge(3,5,0);
+    calabozo.addEdge(4,8,0);
+    calabozo.addEdge(4,9,0);
+    calabozo.addEdge(4,7,0);
+    calabozo.addEdge(6,10,0);
+    calabozo.addEdge(6,8,0);
+    calabozo.addEdge(7,4,0);
+    calabozo.addEdge(7,9,0);
+    calabozo.addEdge(7,5,0);
+    calabozo.addEdge(7,11,0);
+    calabozo.addEdge(7,14,0);
+    calabozo.addEdge(8,10,0);
+    calabozo.addEdge(8,12,0);
+    calabozo.addEdge(8,15,0);
+    calabozo.addEdge(8,13,0);
+    calabozo.addEdge(8,9,0);
+    calabozo.addEdge(9,8,0);
+    calabozo.addEdge(9,13,0);
+    calabozo.addEdge(9,16,0);
+    calabozo.addEdge(9,14,0);
+    calabozo.addEdge(10,8,0);
+    calabozo.addEdge(10,12,0);
+    calabozo.addEdge(11,5,0);
+    calabozo.addEdge(11,14,0);
+    calabozo.addEdge(12,15,0);
+    calabozo.addEdge(13,15,0);
+    calabozo.addEdge(13,17,0);
+    calabozo.addEdge(13,16,0);
+    calabozo.addEdge(13,14,0);
+    calabozo.addEdge(14,13,0);
+    calabozo.addEdge(14,16,0);
+    calabozo.addEdge(15,17,0);
+    calabozo.addEdge(16,17,0);
+    calabozo.addEdge(16,19,0);
+    calabozo.addEdge(17,18,0);
+    calabozo.addEdge(17,19,0);
+    calabozo.addEdge(18,19,0);
+    calabozo.addEdge(18,20,0);
+    calabozo.addEdge(19,18,0);
+    calabozo.addEdge(19,20,0);
 
 }
 
@@ -129,7 +163,7 @@ void createPowers(Hashtable<Powers>& HashP, Powers& p1) {
     HashP.insert(p5,5);
     Powers p6("Aura of Vitality", "Recibes puntos de vida. LP = 2 * d(10) ");
     HashP.insert(p6,6);
-    Powers p7("Slicker Shot", "Obtienes un dado extra d(10) que te permite volver a usar un hechizo. EL valor del dado de la primer tirada se convierte en HP. HP = d(10) + posible hp de la siguiente tirada ");
+    Powers p7("Slicker Shot", "El dano que hagas en esta tirada d(10) se suma al valor de dano que el monstruo recibio en el turno pasado");
     HashP.insert(p7,7);
     Powers p8("Celestial Will", "Los dioses han decidido ayudarte con un ataque letal que inflige dano verdadero. HP = 300 ");
     HashP.insert(p8,8);
@@ -145,17 +179,118 @@ void createPowers(Hashtable<Powers>& HashP, Powers& p1) {
     HashP.insert(p13,13);
     Powers p14("Compound seizure", "Infliges dano proporcional al numero de turno actual por combate. HP = d(10) * #turno");
     HashP.insert(p14,14);
+
 }
 
-int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list) {
-    int condicion = combate(monster,you,p1,arrPowers);
+void assignPowers(Hashtable<Powers>& HashP, int arrPowers[], int randomDicePowers[]) {
+    int nPower;
+    for(int i = 0; i<5;i++) {
+        cout<<"Ingrese el numero del poder que quiere agregar a su repertorio ["<<i+1<<"]: ";
+        cin>>nPower;
+        arrPowers[i] = nPower;
+    }
+
+    cout<<"Tus hechizos: "<<endl;
+    for(int i = 0; i<5; i++) {
+        cout<<"["<<i+1<<"] ";
+        HashP.showPower(i);
+        cout<<endl;
+    }
+
+    cout<<"---------------arreglo dados--------------------"<<endl;
+    crearArregloDadosPowers(randomDicePowers);
+
+    cout<<"\n Sus hechizos: ";
+    for(int i = 0; i<5; i++) {
+        cout<<arrPowers[i]<<", ";
+    }
+    cout<<"Tienen asignados los siguientes numeros del dado d(10): ";
+    for(int i = 0; i<5; i++) {
+        cout<<randomDicePowers[i]<<", ";
+    }
+    cout<<endl;
+}
+
+void crearArregloDadosPowers(int randomDicePowers[]) {
+    int randomN;
+    Dice dado;
+    for (int i = 0; i < 5; i++) {
+        do {
+            randomN = dado.getRandomDice2(); // dado de 10
+        } while (checarDado(randomDicePowers,randomN)); // Verifica si el número ya existe
+
+        randomDicePowers[i] = randomN; // Si no se repite, lo asigna
+    }
+}
+
+bool checarDado(int randomDicePowers[], int randomN) {
+    for (int i = 0; i < 5; i++) {
+        if (randomDicePowers[i] == randomN) {
+            return true; // Número ya existe
+        }
+    }
+    return false; // Número no está en el arreglo
+}
+
+int combate(Monster& monster, Player& you, Powers& p1, int arrPowers[], int& conteoN10, int &turno, Dice dado, int randomDicePowers[]) {
+    cout<<"---------------------------- Combate ------------------------"<<endl<<endl; //
+    string opcion;
+    while(monster.getLp() > 0) {
+        turno++;
+        bool teclaValida = false;
+
+        while (!teclaValida) {
+            cout<<"Deseas lanzar el dado (Y): "<<endl;
+            cin>>opcion;
+            if(opcion == "y" || opcion == "Y") {
+                teclaValida = true;
+            }else {
+                cout<<"Que tipo de hechiceria es esta. Por favor conjura algo correcto"<<endl;
+            }
+        }
+
+        int index;
+        cout<<"Buena suerte guerrero"<<endl<<endl;
+        int valorDado = dado.getRandomDice2();
+        if(checarDado(randomDicePowers,valorDado)) {
+            for(int i = 0; i<5; i++) {
+                if(randomDicePowers[i] == valorDado) {
+                    index = i;
+                }
+            }
+            cout<<"La suerte te beneficia guerrero"<<endl;
+            p1.accion(arrPowers[index],monster,you,turno, conteoN10,daño,vida, dañoM,invisibilidad,dañoDobleHechizo, dañoDado);
+
+        }else {
+            p1.accion(15,monster,you,turno, conteoN10,daño,vida, dañoM,invisibilidad,dañoDobleHechizo, valorDado);
+        }
+
+        if(you.getLp() <=0) {
+            return 76; //muere el jugador
+        }else{
+            return 15; //todavía no ha derrotado al monstruo y no ha muerto el jugador
+        }
+    }
+    return 45;//derrota al mosntruo
+}
+
+int juego(Monster& monster, Player& you, Powers& p1, int arrPowers[], LinkedList<Monster> monster_list, int& conteoN10, Dice dado, int randomDicePowers[]) {
+    int condicion = combate(monster,you,p1,arrPowers, conteoN10,turno, dado, randomDicePowers);
     if (condicion == 45) {
         // en esta línea añadir al monstruo derrotado a la lista de mosntruos derrotados. Se hará insertando el nombre del monstruo actual (monster) en la lista defeated. Usa un método getName.
         monster = monster_list.getRandomMonster();
-        juego( monster, you, p1, arrPowers,monster_list);
-    }else {
+        juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers);
+
+    }else if(condicion == 76) {
         cout<<"Game over"<<endl;
         //En esta línea imprimir la lista de monstruos derrotados. Usa el metodo displayDefeatedMonsters().
         return 0;
+    }else {
+        juego( monster, you, p1, arrPowers,monster_list, conteoN10,dado,randomDicePowers);
     }
 }
+
+
+
+
+

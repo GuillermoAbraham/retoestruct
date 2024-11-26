@@ -1,3 +1,4 @@
+
 #include "Powers.h"
 #include "Dice.h"
 
@@ -15,33 +16,53 @@ void Powers::setDescription(string description){
 }
 
 string Powers::getDescription(){
-    return description;
+    return name;
 }
 
-void Powers::accion(int n, Monster& m, Player& p, int turno) {
+void Powers::accion(int n, Monster& m, Player& p, int& turno, int& conteoN10, int daño, int vida, int dañoM, bool& invisibilidad, int& dañoDobleHechizo, int dañoDado) {
 
     switch (n) {
-        case 1: {
-            //Este hechizo conjura una rafaga de energia magica oscura que se lanza contra un enemigo. HP = 1.5 * d(10)
+        case 1://Este hechizo conjura una rafaga de energia magica oscura que se lanza contra un enemigo. HP = 1.5 * d(10)
             cout<<"\nTurno: "<<turno<<endl;
 
             //Turno Player:
-            m.setLp(m.getLp()-(1.5*dado.getRandomDice2()));
+            daño = 1.5*dado.getRandomDice2();
+            dañoDobleHechizo = daño;
+            m.setLp(m.getLp()-(daño));
 
             //Turno Monster:
-            p.setLp(p.getLp()-dado.getRandomDice1());
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
+
+
+
 
             m.display();
             p.display();
+            cout<<"Danio infligido: "<<daño<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido/2: "<<dañoM/2<<"\n" : cout<<"Danio recibido: "<<dañoM<<"\n";
 
             break;
-        }
-        case 2: {
+        case 2:// -------------------- Especial--------------------
             //Eres invisible durante el proximo turno, por lo que no te pueden hacer daño
             cout<<"\nTurno: "<<turno<<endl;
 
             //Turno Player:
             cout<<"Si no me muevo, no me ven jijijija"<<endl;
+            invisibilidad = true;
 
             //Turno Monster:
 
@@ -50,87 +71,172 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             p.display();
 
             break;
-        }
-        case 3: {
-            //Disparas una bola de fuego de tu pecho que inflige daño instantaneo. HP = 2 * d(10)
+        case 3://Disparas una bola de fuego de tu pecho que inflige daño instantaneo. HP = 2 * d(10)
             cout<<"\nTurno: "<<turno<<endl;
 
             //Turno Player:
-            m.setLp(m.getLp()-(2*dado.getRandomDice2()));
+            daño = 2*dado.getRandomDice2();
+            dañoDobleHechizo = daño;
+            m.setLp(m.getLp()-(daño));
 
             //Turno Monster:
-            p.setLp(p.getLp()-dado.getRandomDice1());
-
-            m.display();
-            p.display();
-
-            break;
-        }
-        case 4: {
-            //Recuperas puntos de vida LP = 20 + d(10)
-            cout<<"\nTurno: "<<turno<<endl;
-
-            //Turno Player:
-            p.setLp(p.getLp()+(20+dado.getRandomDice2()));
-
-            //Turno Monster:
-            p.setLp(p.getLp()-dado.getRandomDice1());
-
-            m.display();
-            p.display();
-
-
-            break;
-        }
-        case 5: {
-            //Este hechizo permite multiplicar x10 el dano asignado a tu dado (solo aplicable en el primer turno de cada combate). HP = 10*d(10)
-            cout<<"\nTurno: "<<turno<<endl;
-
-            //Turno Player:
-            if(turno == 1) {
-                m.setLp(m.getLp()-(10*dado.getRandomDice2()));
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
             }else {
-                m.setLp(m.getLp()-dado.getRandomDice2());
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
+
+            m.display();
+            p.display();
+            cout<<"Danio infligido: "<<daño<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
+            break;
+        case 4://Recuperas puntos de vida LP = 20 + d(10)
+            cout<<"\nTurno: "<<turno<<endl;
+
+            //Turno Player:
+            vida = 20+dado.getRandomDice2();
+            dañoDobleHechizo = 0;
+            p.setLp(p.getLp()+(vida));
+
+            //Turno Monster:
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
+
+            m.display();
+            p.display();
+            cout<<"Vida recibida: "<<vida<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
+
+
+            break;
+        case 5://Este hechizo permite multiplicar x10 el dano asignado a tu dado (solo aplicable en el primer turno de cada combate). HP = 10*d(10)
+            cout<<"\nTurno: "<<turno<<endl;
+
+            //Turno Player:
+            daño = dado.getRandomDice2();
+            dañoDobleHechizo = daño;
+            if(turno == 1) {
+
+                m.setLp(m.getLp()-(10*daño));
+                dañoDobleHechizo = 10*daño;
+            }else {
+                m.setLp(m.getLp()-daño);
+                dañoDobleHechizo = daño;
             }
 
             //Turno Monster:
-            p.setLp(p.getLp()-dado.getRandomDice1());
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
 
             m.display();
             p.display();
+            cout<<"Danio infligido: "<<daño<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
 
 
             break;
-        }
         case 6: {
             //Recibes puntos de vida. LP = 2 * d(10)
             cout<<"\nTurno: "<<turno<<endl;
 
             //Turno Player:
-            p.setLp(p.getLp()+(2*dado.getRandomDice2()));
+            vida = 2*dado.getRandomDice2();
+            dañoDobleHechizo = 0;
+            p.setLp(p.getLp()+(vida));
 
             //Turno Monster:
-            p.setLp(p.getLp()-dado.getRandomDice1());
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
 
             m.display();
             p.display();
+            cout<<"Vida recibida: "<<vida<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
 
             break;
         }
-        case 7: {
-            //Obtienes un dado extra d(10) que te permite volver a usar un hechizo.
-            //EL valor del dado de la primer tirada se convierte en HP. HP = d(10) + posible hp de la siguiente tirada
+        case 7: {// -------------------- Especial--------------------
+            //Obtienes un dado extra d(10) que te permite volver a usar un hechizo. EL valor del dado de la primer tirada se convierte en HP. HP = d(10) + posible hp de la siguiente tirada
             cout<<"\nTurno: "<<turno<<endl;
 
             // Turno Player:
             int extraDamage = dado.getRandomDice2();
-            m.setLp(m.getLp() - extraDamage);
 
-            // Turno Monster:
-            p.setLp(p.getLp() - dado.getRandomDice1());
+            m.setLp(m.getLp() - (extraDamage+dañoDobleHechizo));
+
+
+            //Turno Monster:
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
 
             m.display();
             p.display();
+            cout<<"Danio infligido por d(10): "<<extraDamage<<endl<<"Danio infligido por turno anterior: "<<dañoDobleHechizo<<endl<<"Danio total infligido: "<<extraDamage+dañoDobleHechizo<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
+            dañoDobleHechizo = 0;
 
             break;
         }
@@ -139,13 +245,31 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             cout<<"\nTurno: "<<turno<<endl;
 
             // Turno Player:
-            m.setLp(m.getLp() - 300);
+            daño = 300;
+            dañoDobleHechizo = daño;
+            m.setLp(m.getLp() - daño);
 
-            // Turno Monster:
-            p.setLp(p.getLp() - dado.getRandomDice1());
+            //Turno Monster:
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
 
             m.display();
             p.display();
+            cout<<"Danio infligido: "<<daño<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
 
             break;
         }
@@ -155,17 +279,35 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             cout<<"\nTurno: "<<turno<<endl;
 
             // Turno Player:
-            p.setLp(p.getLp() + 500);
+            vida = 500;
+            dañoDobleHechizo = 0;
+            p.setLp(p.getLp() + vida);
 
-            // Turno Monster:
-            p.setLp(p.getLp() - dado.getRandomDice1());
+            //Turno Monster:
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
 
             m.display();
             p.display();
+            cout<<"Vida recibida: "<<vida<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
 
             break;
         }
-        case 10: {
+        case 10: { // -------------------- Especial--------------------
             // Provoca que el dano de los siguientes 2 ataques del monstruo se reduzcan a la mitad.
             cout<<"\nTurno: "<<turno<<endl;
 
@@ -173,10 +315,19 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             cout << "Los siguientes 2 ataques del monstruo infligen la mitad de daño." << endl;
 
             // Turno Monster:
-            p.setLp(p.getLp() - (dado.getRandomDice1() / 2));
+            if(invisibilidad == true) {
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }
+
 
             m.display();
             p.display();
+            if(conteoN10 == 0) {
+                conteoN10 = conteoN10 + 2;
+            }
+
+
 
             break;
         }
@@ -185,14 +336,30 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             cout<<"\nTurno: "<<turno<<endl;
 
             // Turno Player:
-            m.setLp(m.getLp() - (50 + dado.getRandomDice2()));
+            daño = 50 + dado.getRandomDice2();
+            dañoDobleHechizo = daño;
+            m.setLp(m.getLp() - (daño));
 
-            // Turno Monster:
-            p.setLp(p.getLp() - dado.getRandomDice1());
+            //Turno Monster:
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
 
             m.display();
             p.display();
-
+            cout<<"Danio infligido: "<<daño<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
             break;
         }
         case 12: {
@@ -201,11 +368,18 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             cout<<"\nTurno: "<<turno<<endl;
 
             //Turno player
+            dañoDobleHechizo = 0;
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }
             cout<<"¡¿Pero qué esta pasando?!, el mosnstruo se esta desintegrando"<<endl;
 
             m.setLp(m.getLp() - 999);
 
             cout<<"Supongo que esto es una victoria para mi"<<endl;
+
 
             m.display();
             p.display();
@@ -218,14 +392,32 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
 
             // Turno Player:
             int robaVida = dado.getRandomDice2();
+            dañoDobleHechizo = robaVida;
             p.setLp(p.getLp() + robaVida);
             m.setLp(m.getLp() - robaVida);
 
-            // Turno Monster:
-            p.setLp(p.getLp() - dado.getRandomDice1());
+            //Turno Monster:
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
 
             m.display();
             p.display();
+            cout<<"Danio infligido: "<<robaVida<<endl;
+            cout<<"Vida recibida: "<<vida<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
 
             break;
         }
@@ -234,14 +426,64 @@ void Powers::accion(int n, Monster& m, Player& p, int turno) {
             cout<<"\nTurno: "<<turno<<endl;
 
             // Turno Player:
-            m.setLp(m.getLp() - (dado.getRandomDice2() * turno));
+            daño = dado.getRandomDice2() * turno;
+            dañoDobleHechizo = daño;
+            m.setLp(m.getLp() - (daño));
 
-            // Turno Monster:
-            p.setLp(p.getLp() - dado.getRandomDice1());
+            //Turno Monster:
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
+
             m.display();
             p.display();
+            cout<<"Danio infligido: "<<daño<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
 
             break;
         }
+        case 15: {
+            cout<<"\nTurno: "<<turno<<endl;
+
+            // Turno Player:
+            daño = dañoDado;
+            dañoDobleHechizo = daño;
+            m.setLp(m.getLp() - (daño));
+
+            //Turno Monster:
+            dañoM = dado.getRandomDice1();
+            if(invisibilidad == true) {
+                dañoM = 0;
+                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
+                invisibilidad = false;
+            }else {
+                if(m.getLp()>0) {
+                    if(conteoN10 > 0) {
+                        p.setLp(p.getLp()-(dañoM)/2);
+                        conteoN10 --;
+                    }else {
+                        p.setLp(p.getLp()-dañoM);
+                    }
+                }
+            }
+
+            m.display();
+            p.display();
+            cout<<"Danio infligido: "<<daño<<endl;
+            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
+        }
+
     }
 }

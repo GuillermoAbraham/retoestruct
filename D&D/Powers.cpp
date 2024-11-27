@@ -458,29 +458,5 @@ void Powers::accion(int n, Monster& m, Player& p, int& turno, int& conteoN10, in
             break;
         }
 
-            //Turno Monster:
-            dañoM = dado.getRandomDice1();
-            if(invisibilidad == true) {
-                dañoM = 0;
-                cout<<"Monstruo: Grsss, en donde estas?"<<endl;
-                invisibilidad = false;
-            }else {
-                if(m.getLp()>0) {
-                    if(conteoN10 > 0) {
-                        p.setLp(p.getLp()-(dañoM)/2);
-                        conteoN10 --;
-                    }else {
-                        p.setLp(p.getLp()-dañoM);
-                    }
-                }
-            }
-            cout<<"----------- Estadisticas actuales -------------"<<endl;
-
-            m.display();
-            p.display();
-            cout<<"Danio infligido: "<<daño<<endl;
-            conteoN10>0 ? cout<<"Danio recibido original: "<<dañoM<<"\n"<<"Danio recibido /2: "<<dañoM/2<<endl :   cout<<"Danio recibido: "<<dañoM<<"\n";
-        }
-
     }
 }

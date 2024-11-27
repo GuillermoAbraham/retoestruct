@@ -1,3 +1,6 @@
+//
+// Created by stanl on 29/10/2024.
+//
 
 #include "Powers.h"
 #include "Dice.h"
@@ -454,13 +457,6 @@ void Powers::accion(int n, Monster& m, Player& p, int& turno, int& conteoN10, in
 
             break;
         }
-        case 15: {
-            cout<<"\nTurno: "<<turno<<endl;
-
-            // Turno Player:
-            daño = dañoDado;
-            dañoDobleHechizo = daño;
-            m.setLp(m.getLp() - (daño));
 
             //Turno Monster:
             dañoM = dado.getRandomDice1();
